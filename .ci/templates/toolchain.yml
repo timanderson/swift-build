@@ -282,8 +282,10 @@ jobs:
         inputs:
           cmakeArgs:
             -G Ninja
-            -S $(Build.SourcesDirectory)/toolchain/llvm
             -B $(Build.BinariesDirectory)/toolchain
+            ${{ parameters.LLVM_OPTIONS }}
+            ${{ parameters.LLDB_OPTIONS }}
+            ${{ parameters.SWIFT_OPTIONS }}
             -C $(Build.SourcesDirectory)/swift-build/cmake/caches/${{ parameters.platform }}-${{ parameters.arch }}.cmake
             -C $(Build.SourcesDirectory)/swift-build/cmake/caches/org.compnerd.dt.cmake
             -D CMAKE_BUILD_TYPE=Release
@@ -295,9 +297,7 @@ jobs:
             -D CLANG_TABLEGEN=$(CLANG_TABLEGEN)
             -D LLDB_TABLEGEN=$(LLDB_TABLEGEN)
             -D SWIFT_PATH_TO_LIBDISPATCH_SOURCE=$(Build.SourcesDirectory)/swift-corelibs-libdispatch
-            ${{ parameters.LLVM_OPTIONS }}
-            ${{ parameters.LLDB_OPTIONS }}
-            ${{ parameters.SWIFT_OPTIONS }}
+            -S $(Build.SourcesDirectory)/toolchain/llvm
 
       - task: CMake@1
         displayName: Build toolchain

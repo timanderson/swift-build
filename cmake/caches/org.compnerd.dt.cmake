@@ -144,14 +144,27 @@ set(LLD_TOOLS
 set(LLDB_ALLOW_STATIC_BINDINGS YES CACHE BOOL "")
 set(LLDB_USE_STATIC_BINDINGS YES CACHE BOOL "")
 
-set(LLDB_TOOLS
-      liblldb
-      lldb
-      lldb-argdumper
-      lldb-server
-      lldb-vscode
-      repl_swift
-    CACHE STRING "")
+
+if(DEFINED LLDB_ENABLE_PYTHON OR LLDB_ENABLE_PYTHON)
+  set(LLDB_TOOLS
+        liblldb
+        lldb
+        lldb-argdumper
+        lldb-python-scripts
+        lldb-server
+        lldb-vscode
+        repl_swift
+      CACHE STRING "")
+else()
+  set(LLDB_TOOLS
+        liblldb
+        lldb
+        lldb-argdumper
+        lldb-server
+        lldb-vscode
+        repl_swift
+      CACHE STRING "")
+endif()
 
 # --- swift ---
 
